@@ -1,0 +1,42 @@
+services:
+  backend:
+    build:
+      context: ./docker  
+    container_name: slimapi
+    ports:
+      - "8083:80"        
+      - "9003:9003"    
+    volumes:
+      - ./api:/var/www/html
+      - ./docker/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
+    networks:
+      - app-network
+    environment:
+      - MYSQL_HOST=db
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - APP_ENV=${APP_ENV}
+      - APP_DEBUG=${APP_DEBUG}
+      - DEV_HOST=${DEV_HOST}
+    depends_on:
+      - db
+
+  db:
+    image: mysql:5.7
+    container_name: slimapidb
+    ports:
+      - "3309:3306"
+    volumes:
+      - ./docker/db:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

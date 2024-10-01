@@ -1,0 +1,17 @@
+meta {
+  name: products
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{url}}/api/products
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name":"leo"
+  }
+}

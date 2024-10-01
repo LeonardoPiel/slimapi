@@ -1,0 +1,6 @@
+{
+    "require": {
+        "php-di/php-di": "^7.0",
+        "vlucas/valitron": "^1.4"
+    }
+}

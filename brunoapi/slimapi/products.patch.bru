@@ -1,0 +1,19 @@
+meta {
+  name: products.patch
+  type: http
+  seq: 5
+}
+
+patch {
+  url: {{url}}/api/products/5
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name":"leo",
+    "size":1,
+    "description":"Leonardo"
+  }
+}
